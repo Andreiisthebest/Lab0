@@ -1,8 +1,9 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 public class InputContainer {
 
@@ -13,40 +14,75 @@ public class InputContainer {
     }
 
     public void addInput(Input input) {
-        inputs.add(input);
+        this.inputs.add(input);
     }
 
-    public List<Input> getInputs() {
-        return inputs;
+    public String classify(Input input) {
+        boolean isHumanoid = input.isHumanoid();
+        String planet = input.getPlanet();
+        int age = input.getAge();
+        List<String> traits = input.getTraits();
+
+        if (!isHumanoid && planet.equals("Kashyyyk") && traits.contains("HAIRY") && traits.contains("TALL")) {
+            return "Star Wars Universe (Wookie)";
+        }
+        if (!isHumanoid && planet.equals("Endor") && traits.contains("SHORT") && traits.contains("HAIRY")) {
+            return "Star Wars Universe (Ewok)";
+        }
+        if (isHumanoid && planet.equals("Asgard") && traits.contains("BLONDE") && traits.contains("TALL")) {
+            return "Marvel Universe (Asgardian)";
+        }
+        if (isHumanoid && planet.equals("Betelgeuse") && traits.contains("EXTRA_ARMS") && traits.contains("EXTRA_HEAD")) {
+            return "Hitchhiker's Universe (Betelgeusian)";
+        }
+        if (!isHumanoid && planet.equals("Vogsphere") && traits.contains("GREEN") && traits.contains("BULKY")) {
+            return "Hitchhiker's Universe (Vogons)";
+        }
+        if (isHumanoid && planet.equals("Earth") && traits.contains("BLONDE") && traits.contains("POINTY_EARS")) {
+            return "Lord of the Rings Universe (Elf)";
+        }
+        if (isHumanoid && planet.equals("Earth") && traits.contains("SHORT") && traits.contains("BULKY")) {
+            return "Lord of the Rings Universe (Dwarf)";
+        }
+
+
+        if (traits.contains("HAIRY")) return "Star Wars Universe (Wookie)";
+        if (traits.contains("BLONDE") || traits.contains("TALL")) return "Marvel Universe (Asgardian)";
+        if (traits.contains("EXTRA_ARMS") || traits.contains("EXTRA_HEAD")) return "Hitchhiker's Universe (Betelgeusian)";
+        if (traits.contains("GREEN") || traits.contains("BULKY")) return "Hitchhiker's Universe (Vogons)";
+
+        return "Lord of the Rings Universe (Elf)";
     }
 
-    public List<Input> filterByEvenId() {
-        return inputs.stream()
-                .filter(input -> input.getId() % 2 == 0)
-                .collect(Collectors.toList());
+    public void printDetails() {
+        for (Input input : inputs) {
+            String classification = classify(input);
+            System.out.printf(
+                    "ID: %d, IsHumanoid: %s, Planet: %s, Age: %s, Traits: %s\n" +
+                            "Classification: %s\n\n",
+                    input.getId(),
+                    input.isHumanoid() ? "True" : "",
+                    input.getPlanet().isEmpty() ? "" : input.getPlanet(),
+                    input.getAge() > 0 ? input.getAge() : "",
+                    String.join(", ", input.getTraits()),
+                    classification
+            );
+        }
     }
 
-    public List<Input> filterByOddId() {
-        return inputs.stream()
-                .filter(input -> input.getId() % 2 != 0)
-                .collect(Collectors.toList());
-    }
+    public void printUniverseGroups() {
+        Map<String, List<Integer>> universeMap = new HashMap<>();
 
-    public void printIds(List<Input> filteredInputs) {
-        System.out.println("Filtered IDs:");
-        filteredInputs.forEach(input -> System.out.print(input.getId() + " "));
-        System.out.println();
-    }
+        for (Input input : inputs) {
+            String universe = classify(input);
+            universeMap.putIfAbsent(universe, new ArrayList<>());
+            universeMap.get(universe).add(input.getId());
+        }
 
-    public void printAges(List<Input> filteredInputs) {
-        System.out.println("Ages:");
-        filteredInputs.forEach(input -> System.out.print(input.getAge() + " "));
-        System.out.println();
-    }
-
-    public void printPlanets(List<Input> filteredInputs) {
-        System.out.println("Planets:");
-        filteredInputs.forEach(input -> System.out.print(input.getPlanet() + " "));
-        System.out.println();
+        universeMap.forEach((universe, ids) -> {
+            System.out.print(universe + ": ");
+            ids.forEach(id -> System.out.print("ID" + id + " "));
+            System.out.println();
+        });
     }
 }

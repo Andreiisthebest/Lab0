@@ -1,11 +1,9 @@
 package org.example;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +11,7 @@ import java.util.List;
 public class ReadFile {
 
     public static InputContainer parseForeignersFromJson(String filePath) {
+
         InputContainer inputContainer = new InputContainer();
         JSONParser parser = new JSONParser();
 
@@ -25,7 +24,7 @@ public class ReadFile {
                 JSONObject alien = (JSONObject) dataItem;
 
                 int id = ((Long) alien.get("id")).intValue();
-                boolean isHumanoid = (boolean) alien.getOrDefault("isHumanoid", false);
+                boolean isHumanoid = (Boolean) alien.getOrDefault("isHumanoid", false);
                 String planet = (String) alien.getOrDefault("planet", "Unknown");
                 int age = alien.containsKey("age") ? ((Long) alien.get("age")).intValue() : -1;
 
@@ -34,6 +33,7 @@ public class ReadFile {
                 for (Object trait : traitsArray) {
                     traits.add((String) trait);
                 }
+
 
                 Input input = new Input(id, isHumanoid, planet, age, traits);
                 inputContainer.addInput(input);

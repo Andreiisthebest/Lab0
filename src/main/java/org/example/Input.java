@@ -40,12 +40,8 @@ public class Input {
 
     @Override
     public String toString() {
-        return "Input{" +
-                "id=" + id +
-                ", isHumanoid=" + isHumanoid +
-                ", planet='" + planet + '\'' +
-                ", age=" + age +
-                ", traits=" + traits +
-                '}';
+        return "ID: " + id + ", IsHumanoid: " + isHumanoid +
+                ", Planet: " + planet + ", Age: " + age +
+                ", Traits: " + traits;
     }
 }
