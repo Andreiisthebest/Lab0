@@ -1,14 +1,16 @@
 package org.example;
 
+import java.util.List;
+import java.util.Map;
+
 public class Main {
     public static void main(String[] args) {
         String filePath = "src/main/resources/input.json";
         InputContainer inputContainer = ReadFile.parseForeignersFromJson(filePath);
 
-        System.out.println("Details:");
-        inputContainer.printDetails();
+        Map<String, List<Input>> universeGroups = inputContainer.groupByUniverse();
 
-        System.out.println("Universe Groupings:");
-        inputContainer.printUniverseGroups();
+
+        View.generateUniverseJsonFiles(universeGroups);
     }
 }

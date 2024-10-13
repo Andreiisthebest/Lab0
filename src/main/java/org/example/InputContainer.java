@@ -17,72 +17,53 @@ public class InputContainer {
         this.inputs.add(input);
     }
 
+
     public String classify(Input input) {
         boolean isHumanoid = input.isHumanoid();
         String planet = input.getPlanet();
-        int age = input.getAge();
         List<String> traits = input.getTraits();
 
         if (!isHumanoid && planet.equals("Kashyyyk") && traits.contains("HAIRY") && traits.contains("TALL")) {
-            return "Star Wars Universe (Wookie)";
+            return "StarWars";
         }
         if (!isHumanoid && planet.equals("Endor") && traits.contains("SHORT") && traits.contains("HAIRY")) {
-            return "Star Wars Universe (Ewok)";
+            return "StarWars";
         }
         if (isHumanoid && planet.equals("Asgard") && traits.contains("BLONDE") && traits.contains("TALL")) {
-            return "Marvel Universe (Asgardian)";
+            return "Marvel";
         }
         if (isHumanoid && planet.equals("Betelgeuse") && traits.contains("EXTRA_ARMS") && traits.contains("EXTRA_HEAD")) {
-            return "Hitchhiker's Universe (Betelgeusian)";
+            return "Hitchhiker";
         }
         if (!isHumanoid && planet.equals("Vogsphere") && traits.contains("GREEN") && traits.contains("BULKY")) {
-            return "Hitchhiker's Universe (Vogons)";
+            return "Hitchhiker";
         }
         if (isHumanoid && planet.equals("Earth") && traits.contains("BLONDE") && traits.contains("POINTY_EARS")) {
-            return "Lord of the Rings Universe (Elf)";
+            return "LordOfTheRings";
         }
         if (isHumanoid && planet.equals("Earth") && traits.contains("SHORT") && traits.contains("BULKY")) {
-            return "Lord of the Rings Universe (Dwarf)";
+            return "LordOfTheRings";
         }
 
 
-        if (traits.contains("HAIRY")) return "Star Wars Universe (Wookie)";
-        if (traits.contains("BLONDE") || traits.contains("TALL")) return "Marvel Universe (Asgardian)";
-        if (traits.contains("EXTRA_ARMS") || traits.contains("EXTRA_HEAD")) return "Hitchhiker's Universe (Betelgeusian)";
-        if (traits.contains("GREEN") || traits.contains("BULKY")) return "Hitchhiker's Universe (Vogons)";
+        if (traits.contains("HAIRY") || planet.equals("Kashyyyk")) return "StarWars";
+        if (traits.contains("BLONDE") || traits.contains("TALL") || planet.equals("Asgard")) return "Marvel";
+        if (traits.contains("EXTRA_ARMS") || traits.contains("EXTRA_HEAD") || planet.equals("Betelgeuse")) return "Hitchhiker";
+        if (traits.contains("BULKY") || traits.contains("GREEN") || planet.equals("Vogsphere")) return "Hitchhiker";
 
-        return "Lord of the Rings Universe (Elf)";
+        return "LordOfTheRings";
     }
 
-    public void printDetails() {
-        for (Input input : inputs) {
-            String classification = classify(input);
-            System.out.printf(
-                    "ID: %d, IsHumanoid: %s, Planet: %s, Age: %s, Traits: %s\n" +
-                            "Classification: %s\n\n",
-                    input.getId(),
-                    input.isHumanoid() ? "True" : "",
-                    input.getPlanet().isEmpty() ? "" : input.getPlanet(),
-                    input.getAge() > 0 ? input.getAge() : "",
-                    String.join(", ", input.getTraits()),
-                    classification
-            );
-        }
-    }
 
-    public void printUniverseGroups() {
-        Map<String, List<Integer>> universeMap = new HashMap<>();
+    public Map<String, List<Input>> groupByUniverse() {
+        Map<String, List<Input>> universeGroups = new HashMap<>();
 
         for (Input input : inputs) {
             String universe = classify(input);
-            universeMap.putIfAbsent(universe, new ArrayList<>());
-            universeMap.get(universe).add(input.getId());
+            universeGroups.putIfAbsent(universe, new ArrayList<>());
+            universeGroups.get(universe).add(input);
         }
 
-        universeMap.forEach((universe, ids) -> {
-            System.out.print(universe + ": ");
-            ids.forEach(id -> System.out.print("ID" + id + " "));
-            System.out.println();
-        });
+        return universeGroups;
     }
 }
