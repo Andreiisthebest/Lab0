@@ -1,54 +1,47 @@
 package org.example;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.io.File;
 import java.io.FileReader;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReadFile {
-        public static void main(String[] args) {
+
+    public static InputContainer parseForeignersFromJson(String filePath) {
+        InputContainer inputContainer = new InputContainer();
         JSONParser parser = new JSONParser();
+
         try {
-
-            Object obj = parser.parse(new FileReader("src/main/resources/input.json"));
-
-
+            Object obj = parser.parse(new FileReader(filePath));
             JSONObject jsonObject = (JSONObject) obj;
-
-
             JSONArray dataArray = (JSONArray) jsonObject.get("data");
-
 
             for (Object dataItem : dataArray) {
                 JSONObject alien = (JSONObject) dataItem;
 
+                int id = ((Long) alien.get("id")).intValue();
+                boolean isHumanoid = (boolean) alien.getOrDefault("isHumanoid", false);
+                String planet = (String) alien.getOrDefault("planet", "Unknown");
+                int age = alien.containsKey("age") ? ((Long) alien.get("age")).intValue() : -1;
 
-                    long id = (long) alien.get("id");
-                    Boolean isHumanoid = (Boolean) alien.getOrDefault("isHumanoid", null);
-                    String planet = (String) alien.getOrDefault("planet", "Unknown");
-                    Long age = (Long) alien.getOrDefault("age", null);
-                    JSONArray traitsArray = (JSONArray) alien.getOrDefault("traits", new JSONArray());
-
-
-                System.out.println("ID: " + id);
-                System.out.println("Humanoid: " + (isHumanoid != null ? isHumanoid : "N/A"));
-                System.out.println("Planet: " + planet);
-                System.out.println("Age: " + (age != null ? age : "N/A"));
-                System.out.print("Traits: ");
-
-
-                Iterator<?> iterator = traitsArray.iterator();
-                while (iterator.hasNext()) {
-                    System.out.print(iterator.next() + " ");
+                JSONArray traitsArray = (JSONArray) alien.getOrDefault("traits", new JSONArray());
+                List<String> traits = new ArrayList<>();
+                for (Object trait : traitsArray) {
+                    traits.add((String) trait);
                 }
-                System.out.println("\n");
+
+                Input input = new Input(id, isHumanoid, planet, age, traits);
+                inputContainer.addInput(input);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return inputContainer;
     }
 }
-
-
