@@ -1,4 +1,4 @@
-package org.example;
+package Lab0;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
