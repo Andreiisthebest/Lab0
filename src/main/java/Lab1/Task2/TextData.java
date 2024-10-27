@@ -52,7 +52,7 @@ public class TextData {
         return lower == 'a' || lower == 'e' || lower == 'i' || lower == 'o' || lower == 'u';
     }
 
-    // Getters
+
     public String getFileName() {
         return fileName;
     }

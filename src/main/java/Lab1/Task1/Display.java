@@ -30,6 +30,11 @@ public class Display {
     }
 
 
+    @Override
+    public String toString() {
+        return "Display Model: " + model + " [Resolution: " + width + "x" + height + ", PPI: " + ppi + "]";
+    }
+
     public void compareSize(Display m) {
         String s = (this.width * this.height) > (m.getWidth() * m.getHeight())
                 ? this.model + " is bigger \n"
@@ -37,7 +42,6 @@ public class Display {
                 ? "Displays are equal \n"
                 : m.getModel() + " is bigger \n";
         System.out.print(s);
-
     }
 
     public void compareSharpness(Display m) {
@@ -45,14 +49,15 @@ public class Display {
                 ? this.model + " is sharper \n"
                 : (this.ppi ) == m.getPpi()
                 ? "Displays are equally sharp \n"
-                : m.getModel() + "is sharper \n";
+                : m.getModel() + " is sharper \n";
         System.out.print(s);
     }
 
     public void compareWithMonitor(Display m) {
-        System.out.println("Comparing " + this.model + " with " + m.getModel());
+        System.out.println("Comparing " + this + " with " + m);
         compareSize(m);
         compareSharpness(m);
+
 
 //        if (this.width * this.height > m.getWidth() * m.getHeight() && this.ppi > m.getPpi()) {
 //            System.out.println("The " + this.model + " monitor is bigger and sharper");
