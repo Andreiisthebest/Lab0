@@ -11,7 +11,7 @@ public class Main {
             return;
         }
 
-        String filePath = args[0];
+        for (String filePath : args)
         try {
 
             String fileContent = MyFileReader.readFile(filePath);
