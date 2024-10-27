@@ -1,0 +1,4 @@
+Bilete = 3500lei
+Hotel = 200$
+Cheluieli  = 250$
+Kaif = 100%
