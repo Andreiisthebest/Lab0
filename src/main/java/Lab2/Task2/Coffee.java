@@ -8,7 +8,7 @@ public class Coffee {
     }
 
     private Intensity coffeeIntensity;
-    private  String name;
+    private static String name;
 
     public Coffee(Intensity coffeeIntensity, String name) {
         this.coffeeIntensity = coffeeIntensity;
@@ -28,4 +28,5 @@ public class Coffee {
         System.out.println("Coffee Intensity: " + coffeeIntensity);
 
     }
+
 }

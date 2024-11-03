@@ -12,10 +12,10 @@ public class SyrupCappuccino extends Cappuccino {
         CHOCOLATE,
         POPCORN
     }
-public SyrupCappuccino(SyrupType syrup, int mlOfMilk) {
-    super(mlOfMilk);
+public SyrupCappuccino(SyrupType syrup, int mlOfMilk, Intensity intensity) {
+    super("Syrup Cappuccino",mlOfMilk, intensity);
     this.syrup = syrup;
-    getName("Syrup Cappuccino");
+
 }
 @Override
     void printCoffeeDetails() {
@@ -23,4 +23,5 @@ public SyrupCappuccino(SyrupType syrup, int mlOfMilk) {
         System.out.println("Syrup: " + syrup);
 
     }
+
 }

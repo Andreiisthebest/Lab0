@@ -3,10 +3,10 @@ package Lab2.Task2;
 public class PumpkinSpiceLatte extends Cappuccino{
 
     private int mgOfPumpkinSpice;
-    public PumpkinSpiceLatte(int mgOfPumpkinSpice, int mlOfMilk) {
-        super(mlOfMilk);
+    public PumpkinSpiceLatte(int mgOfPumpkinSpice, int mlOfMilk, Intensity intensity) {
+        super("Pumpkin Spice Latte",mlOfMilk, intensity);
         this.mgOfPumpkinSpice = mgOfPumpkinSpice;
-        getName("Pumpkin Spice Latte");
+
     }
 
     public int getMgOfPumpkinSpice() {
@@ -18,4 +18,5 @@ public class PumpkinSpiceLatte extends Cappuccino{
         System.out.println("It contains " + mgOfPumpkinSpice + " mg of Pumpkin spice");
 
     }
+
 }

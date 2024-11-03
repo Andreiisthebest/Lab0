@@ -4,8 +4,8 @@ public class Americano extends Coffee {
     int mlOfWater;
 
 
-    public Americano(int mlOfWater) {
-        super(Intensity.Strong, "Americano");
+    public Americano(int mlOfWater, Intensity intensity) {
+        super(intensity, "Americano");
         this.mlOfWater = mlOfWater;
 
 
@@ -16,4 +16,5 @@ public class Americano extends Coffee {
         System.out.println("It contains " + mlOfWater + " ml of water");
 
     }
+
 }
