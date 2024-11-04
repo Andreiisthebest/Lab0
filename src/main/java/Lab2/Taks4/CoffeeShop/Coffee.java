@@ -8,7 +8,7 @@ public class Coffee {
     }
 
     private Intensity coffeeIntensity;
-    private static String name;
+    private final String name;  // Use final to ensure the name is set only once
 
     public Coffee(Intensity coffeeIntensity, String name) {
         this.coffeeIntensity = coffeeIntensity;
@@ -19,18 +19,17 @@ public class Coffee {
         return coffeeIntensity;
     }
 
-    public void getName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     void printCoffeeDetails() {
-        System.out.println("You ordered " + name );
+        System.out.println("You ordered " + name);
         System.out.println("Coffee Intensity: " + coffeeIntensity);
-
     }
-    public void makeCoffee(){
+
+    public void makeCoffee() {
         System.out.println("Making " + name);
         System.out.println("Coffee Intensity: " + coffeeIntensity);
-
     }
 }

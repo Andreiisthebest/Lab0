@@ -12,23 +12,23 @@ public class SyrupCappuccino extends Cappuccino {
         CHOCOLATE,
         POPCORN
     }
-public SyrupCappuccino(SyrupType syrup, int mlOfMilk, Intensity intensity) {
-    super("Syrup Cappuccino",mlOfMilk, intensity);
-    this.syrup = syrup;
 
-}
-@Override
+    public SyrupCappuccino(SyrupType syrup, int mlOfMilk, Intensity intensity) {
+        super(mlOfMilk, intensity,"Syrup Cappuccino" );
+        this.syrup = syrup;
+    }
+
+    @Override
     void printCoffeeDetails() {
         super.printCoffeeDetails();
         System.out.println("Syrup: " + syrup);
-
     }
+
     public static SyrupCappuccino makeSyrupCappuccino(SyrupType syrup, int mlOfMilk, Intensity intensity) {
-        SyrupCappuccino coffee = new SyrupCappuccino(SyrupType.CARAMEL, mlOfMilk, intensity);
+        SyrupCappuccino coffee = new SyrupCappuccino(syrup, mlOfMilk, intensity);
         coffee.makeCoffee();
         System.out.println("It contains " + mlOfMilk + " ml of milk");
         System.out.println("It contains " + syrup + " syrup");
         return coffee;
-
     }
 }

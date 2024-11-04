@@ -57,10 +57,9 @@ public class Barista {
 
         printOrderList(orderList);
     }
-
     private Americano createAmericano() {
         System.out.println("You ordered an Americano. How many ml of water?");
-        int mlOfWater = scanner.nextInt();
+        int mlOfWater = getValidPositiveInt("ml of water");
         System.out.println("Select Intensity: 1. Light 2. Normal 3. Strong");
         Coffee.Intensity intensity = getValidIntensity();
         return Americano.makeAmericano(mlOfWater, intensity);
@@ -68,7 +67,7 @@ public class Barista {
 
     private Cappuccino createCappuccino() {
         System.out.println("You ordered a Cappuccino. How many ml of milk?");
-        int mlOfMilk = scanner.nextInt();
+        int mlOfMilk = getValidPositiveInt("ml of milk");
         System.out.println("Select Intensity: 1. Light 2. Normal 3. Strong");
         Coffee.Intensity intensity = getValidIntensity();
         return Cappuccino.makeCappuccino(mlOfMilk, intensity);
@@ -85,7 +84,7 @@ public class Barista {
         SyrupCappuccino.SyrupType selectedSyrup = syrupTypes[syrupChoice - 1];
 
         System.out.println("How many ml of milk?");
-        int mlOfMilk = scanner.nextInt();
+        int mlOfMilk = getValidPositiveInt( " ml of milk");
         System.out.println("Select Intensity: 1. Light 2. Normal 3. Strong");
         Coffee.Intensity intensity = getValidIntensity();
         return SyrupCappuccino.makeSyrupCappuccino(selectedSyrup, mlOfMilk, intensity);
@@ -94,13 +93,14 @@ public class Barista {
     private PumpkinSpiceLatte createPumpkinSpiceLatte() {
         System.out.println("You ordered a Pumpkin Spice Latte.");
         System.out.println("How many mg of Pumpkin Spice?");
-        int mgOfPumpkinSpice = scanner.nextInt();
+        int mgOfPumpkinSpice = getValidPositiveInt(" mg of Pumpkin Spice");
         System.out.println("How many ml of milk?");
-        int mlOfMilk = scanner.nextInt();
+        int mlOfMilk = getValidPositiveInt(" ml of milk");
         System.out.println("Select Intensity: 1. Light 2. Normal 3. Strong");
         Coffee.Intensity intensity = getValidIntensity();
         return PumpkinSpiceLatte.makePumpkinSpiceLatte(mgOfPumpkinSpice, mlOfMilk, intensity);
     }
+
 
     private void printOrderList(ArrayList<Coffee> orderList) {
         System.out.println("\nYour order list:");
@@ -127,6 +127,25 @@ public class Barista {
             }
         }
         return choice;
+    }
+    private int getValidPositiveInt(String valueName) {
+        int value = -1;
+        boolean isValid = false;
+        while (!isValid) {
+            try {
+                System.out.print("Enter " + valueName + ": ");
+                String input = scanner.next();
+                value = Integer.parseInt(input);
+                if (value > 0) {
+                    isValid = true;
+                } else {
+                    System.out.println("Invalid input, please enter a positive integer for " + valueName + ".");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input, please enter a valid positive integer for " + valueName + ".");
+            }
+        }
+        return value;
     }
 
 

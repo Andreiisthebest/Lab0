@@ -4,18 +4,14 @@ public class Cappuccino extends Coffee {
 
     private int mlOfMilk;
 
-    public Cappuccino(String name, int mlOfMilk, Intensity intensity) {
-        super(intensity, name);
-        this.mlOfMilk = mlOfMilk;
-
-    }
-
-
     public Cappuccino(int mlOfMilk, Intensity intensity) {
         super(intensity, "Cappuccino");
         this.mlOfMilk = mlOfMilk;
     }
-
+    public Cappuccino(int mlOfMilk, Intensity intensity, String name) {
+        super(intensity, name);
+        this.mlOfMilk = mlOfMilk;
+    }
 
     @Override
     void printCoffeeDetails() {
@@ -28,6 +24,5 @@ public class Cappuccino extends Coffee {
         coffee.makeCoffee();
         System.out.println("It contains " + coffee.mlOfMilk + " ml of milk");
         return coffee;
-
     }
 }
